@@ -1,0 +1,35 @@
+name: Continuous Integration and Delivery
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the tests
+        run: echo "beep boop tests are running..."
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the release
+        run: echo "brrrrrrr building release..."
+
+  deploy:
+    needs: [ test, build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy the release
+        run: echo "deploy...ing...release..."; exit 1
+
+  on_failure:
+    needs: [ test, build, deploy ]
+#    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on failure
+        run: echo "🚨⚠️ ON_FAILURE IN CI_CD.YML ⚠️🚨"

@@ -1,0 +1,18 @@
+# This is an option if, for whatever reason, you want the on failure to be a separate workflow
+# or you have multiple workflows and want one on_failure event if any of them fail.
+
+#name: Check Whether CI/CD Failed
+#
+#on:
+#  workflow_run:
+#    workflows: ['Continuous Integration and Delivery']
+#    types:
+#      - completed
+#
+#jobs:
+#  check_results:
+#    runs-on: ubuntu-latest
+#    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#    steps:
+#      - name: Notify on failure
+#        run: echo "🚨⚠️ ON_FAILURE IN CHECK_RESULTS.YML ⚠️🚨"
